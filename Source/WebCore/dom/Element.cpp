@@ -726,7 +726,7 @@ void Element::synchronizeAllAttributes() const
         return;
     if (elementData()->styleAttributeIsDirty()) {
         ASSERT(isStyledElement());
-        static_cast<const StyledElement*>(this)->synchronizeStyleAttributeInternal();
+        downcast<const StyledElement>(this)->synchronizeStyleAttributeInternal();
     }
     
     if (auto* svgElement = dynamicDowncast<SVGElement>(*this))
@@ -739,7 +739,7 @@ ALWAYS_INLINE void Element::synchronizeAttribute(const QualifiedName& name) cons
         return;
     if (UNLIKELY(name == styleAttr && elementData()->styleAttributeIsDirty())) {
         ASSERT_WITH_SECURITY_IMPLICATION(isStyledElement());
-        static_cast<const StyledElement*>(this)->synchronizeStyleAttributeInternal();
+        downcast<const StyledElement>(this)->synchronizeStyleAttributeInternal();
         return;
     }
 
@@ -762,7 +762,7 @@ ALWAYS_INLINE void Element::synchronizeAttribute(const AtomString& localName) co
         return;
     if (elementData()->styleAttributeIsDirty() && isStyleAttribute(*this, localName)) {
         ASSERT_WITH_SECURITY_IMPLICATION(isStyledElement());
-        static_cast<const StyledElement*>(this)->synchronizeStyleAttributeInternal();
+        downcast<const StyledElement>(this)->synchronizeStyleAttributeInternal();
         return;
     }
 
